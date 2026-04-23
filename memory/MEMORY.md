@@ -1,0 +1,1 @@
+- [LAUJICLA company profile](company_profile.md) — servicios (diseño, mantenimiento, fumigación, fertilización) y tipos de espacios que atiende
