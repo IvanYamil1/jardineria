@@ -1,84 +1,78 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site, whatsappUrl } from "@/lib/site";
 
 const nav = [
   { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
+  { href: "#nosotros", label: "Cómo trabajamos" },
   { href: "#proyectos", label: "Proyectos" },
-  { href: "#testimonios", label: "Testimonios" },
   { href: "#contacto", label: "Contacto" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.6);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#f1ebdd]/90 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.04)]"
-          : "bg-transparent"
+        visible
+          ? "translate-y-0 opacity-100 bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+          : "-translate-y-full opacity-0 pointer-events-none"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <Link href="#inicio" className="flex items-center gap-3">
-          <Image
-            src="/logo.jpeg"
-            alt={`${site.name} logo`}
-            width={44}
-            height={44}
-            className="rounded-full ring-1 ring-neutral-900/10"
-            priority
-          />
-          <div className="flex flex-col leading-tight">
-            <span className="text-lg font-extrabold text-neutral-900 tracking-tight">
-              {site.name}
+      <div className="max-w-[1400px] mx-auto px-7 sm:px-9 h-[60px] flex items-center">
+        {/* Left: floating links */}
+        <nav className="hidden lg:flex items-center text-[13px] text-neutral-600 font-medium gap-0">
+          {nav.map((item, i) => (
+            <span key={item.href} className="flex items-center">
+              {i > 0 && (
+                <span className="mx-3 text-neutral-300 select-none font-normal">/</span>
+              )}
+              <a href={item.href} className="hover:text-neutral-900 transition-colors">
+                {item.label}
+              </a>
             </span>
-            <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
-              {site.tagline}
-            </span>
-          </div>
-        </Link>
-
-        <nav className="hidden lg:flex items-center gap-9">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-neutral-700 hover:text-neutral-950 transition-colors"
-            >
-              {item.label}
-            </a>
           ))}
         </nav>
 
+        {/* Center: logo */}
+        <Link
+          href="#inicio"
+          className="absolute left-1/2 -translate-x-1/2 font-bold text-neutral-900 text-[1.1rem] tracking-tight"
+        >
+          {site.name}
+        </Link>
+
+        {/* Right: CTA */}
         <a
           href={whatsappUrl()}
           target="_blank"
           rel="noreferrer"
-          className="hidden lg:inline-flex items-center rounded-full bg-neutral-900 hover:bg-neutral-800 text-white px-6 py-2.5 text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors"
+          className="ml-auto hidden lg:flex items-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-xl pl-4 pr-1.5 py-1.5 text-[13px] font-medium transition-colors"
         >
           Cotizar ahora
+          <span className="w-7 h-7 rounded-lg bg-white text-neutral-900 grid place-items-center shrink-0">
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" />
+            </svg>
+          </span>
         </a>
 
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label="Abrir menú"
-          className="lg:hidden p-2 rounded-md text-neutral-900"
+          className="lg:hidden ml-auto p-2 text-neutral-900"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -89,14 +83,14 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-neutral-900/10 bg-[#faf5e8]">
-          <div className="px-4 py-4 flex flex-col gap-2">
+        <div className="lg:hidden border-t border-neutral-100 bg-white">
+          <div className="px-6 py-4 flex flex-col gap-2">
             {nav.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="py-2 text-neutral-800 hover:text-neutral-950 font-medium"
+                className="py-2 text-neutral-700 hover:text-neutral-900 font-medium"
               >
                 {item.label}
               </a>
@@ -105,7 +99,7 @@ export default function Navbar() {
               href={whatsappUrl()}
               target="_blank"
               rel="noreferrer"
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-neutral-900 text-white px-5 py-3 text-xs font-semibold tracking-[0.18em] uppercase"
+              className="mt-2 inline-flex items-center justify-center rounded-xl bg-neutral-900 text-white px-5 py-3 text-sm font-medium"
             >
               Cotizar ahora
             </a>
