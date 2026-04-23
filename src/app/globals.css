@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f1ebdd;
   --foreground: #1a1a1a;
+  --cream-50: #faf5e8;
+  --cream-100: #f5efe0;
+  --cream-200: #f1ebdd;
+  --cream-300: #e8dcc2;
   --brand-50: #f1faf1;
   --brand-100: #dcf1dc;
   --brand-200: #bbe3bb;
@@ -12,12 +16,16 @@
   --brand-600: #2a7a2a;
   --brand-700: #226322;
   --brand-800: #1c4f1c;
-  --brand-900: #164016;
+  --brand-900: #1d2b1d;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cream-50: var(--cream-50);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
   --color-brand-50: var(--brand-50);
   --color-brand-100: var(--brand-100);
   --color-brand-200: var(--brand-200);
@@ -29,6 +37,7 @@
   --color-brand-800: var(--brand-800);
   --color-brand-900: var(--brand-900);
   --font-sans: var(--font-poppins);
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
 }
 
 body {
