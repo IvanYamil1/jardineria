@@ -70,7 +70,7 @@ export default function Contact() {
         </div>
 
         {/* Right: WhatsApp dark card */}
-        <div className="relative overflow-hidden rounded-[22px] lg:rounded-[28px] bg-[#040d08] flex flex-col justify-between p-8 sm:p-12 min-h-[480px]">
+        <div className="relative overflow-hidden rounded-[22px] lg:rounded-[28px] bg-[#040d08] flex flex-col justify-between p-8 sm:p-12 min-h-[380px] sm:min-h-[480px]">
 
           <div
             className="absolute inset-0 pointer-events-none opacity-[0.14]"

@@ -10,7 +10,7 @@ const services = [
       "Proyectamos jardines combinando estética, funcionalidad y plantas ideales para tu clima y espacio.",
     image: "/images/servicio-diseno.jpg",
     col: "lg:col-span-7",
-    height: "min-h-[460px] lg:min-h-[520px]",
+    height: "min-h-[380px] sm:min-h-[460px] lg:min-h-[520px]",
     sizes: "(max-width: 1024px) 100vw, 58vw",
     priority: true,
   },

@@ -43,10 +43,10 @@ export default function Hero() {
 
           {/* Headline — DM Sans, igual que la referencia Caladan */}
           <h1 className="font-heading leading-[1.05] tracking-tight text-white">
-            <span className="block text-[2.6rem] sm:text-5xl lg:text-[4rem] xl:text-[5rem] font-bold">
+            <span className="block text-[2rem] sm:text-5xl lg:text-[4rem] xl:text-[5rem] font-bold">
               Transforma tus
             </span>
-            <span className="block text-[2.6rem] sm:text-5xl lg:text-[4rem] xl:text-[5rem] font-bold text-white/55 mt-1">
+            <span className="block text-[2rem] sm:text-5xl lg:text-[4rem] xl:text-[5rem] font-bold text-white/55 mt-1">
               Áreas Verdes
             </span>
           </h1>

@@ -99,12 +99,12 @@ export default function About() {
               {stats.map((s, i) => (
                 <div
                   key={s.label}
-                  className={`flex flex-col ${i > 0 ? "pl-5 border-l border-white/10" : ""}`}
+                  className={`flex flex-col ${i > 0 ? "pl-3 sm:pl-5 border-l border-white/10" : ""}`}
                 >
-                  <span className="font-heading font-bold text-[#5aaa5a] text-[2.15rem] leading-none tracking-tight">
+                  <span className="font-heading font-bold text-[#5aaa5a] text-[1.6rem] sm:text-[2.15rem] leading-none tracking-tight">
                     {s.value}
                   </span>
-                  <span className="text-white/36 text-[10px] uppercase tracking-[0.16em] mt-2 leading-snug whitespace-pre-line">
+                  <span className="text-white/36 text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.16em] mt-2 leading-snug whitespace-pre-line">
                     {s.label}
                   </span>
                 </div>
@@ -112,7 +112,7 @@ export default function About() {
             </div>
 
             {/* Pillars */}
-            <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-5">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
               {pillars.map((p) => (
                 <div key={p.title} className="border-l-2 border-[#2a7a2a]/55 pl-3.5">
                   <h3 className="font-heading font-semibold text-white/88 text-[12.5px] leading-snug">
