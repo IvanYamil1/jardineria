@@ -38,6 +38,7 @@
   --color-brand-900: var(--brand-900);
   --font-sans: var(--font-poppins);
   --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-heading: var(--font-dm);
 }
 
 body {

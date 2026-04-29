@@ -35,35 +35,46 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="proyectos" className="py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 max-w-5xl mb-14">
+    <section id="proyectos" className="bg-white px-[10px] pb-[10px]">
+      <div className="bg-[#f5efe0] rounded-[22px] lg:rounded-[28px] overflow-hidden px-6 sm:px-10 lg:px-14 pt-16 lg:pt-20 pb-8">
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
           <div>
-            <span className="text-[11px] uppercase tracking-[0.28em] text-neutral-500 font-semibold">
-              — Proyectos
-            </span>
-            <h2 className="mt-4 font-serif text-[2.5rem] sm:text-5xl lg:text-[3.5rem] leading-[1.02] tracking-tight text-neutral-900">
-              Trabajos que hablan{" "}
-              <span className="italic text-brand-700">por sí mismos</span>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="block w-9 h-px bg-neutral-400/60" />
+              <span className="text-neutral-500 text-[10px] tracking-[0.30em] uppercase font-medium">
+                Proyectos
+              </span>
+            </div>
+            <h2 className="font-heading font-bold text-[2.4rem] sm:text-5xl lg:text-[3.5rem] leading-[1.04] tracking-tight text-neutral-900">
+              Trabajos que
+              <br />
+              <span className="text-[#2a7a2a]">hablan solos</span>
             </h2>
           </div>
-          <p className="text-neutral-600 max-w-sm leading-relaxed">
+          <p className="text-neutral-500 max-w-[260px] leading-relaxed text-[13px]">
             Una muestra de los espacios que hemos diseñado y mantenido para
             nuestros clientes.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Grid — featured first item */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
           {projects.map((p, i) => (
             <article
               key={p.title}
-              className={`group bg-[#faf5e8] rounded-3xl ring-1 ring-[#e8dcc2]/70 p-3 flex flex-col ${
-                i === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
+              className={`group relative overflow-hidden rounded-[16px] bg-neutral-300 ${
+                i === 0
+                  ? "col-span-2 lg:col-span-2 lg:row-span-2"
+                  : ""
               }`}
             >
               <div
-                className={`relative overflow-hidden rounded-2xl ${
-                  i === 0 ? "aspect-[4/3] lg:aspect-auto lg:flex-1 lg:min-h-[400px]" : "aspect-[4/3]"
+                className={`relative w-full ${
+                  i === 0
+                    ? "aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[480px]"
+                    : "aspect-square"
                 }`}
               >
                 <Image
@@ -77,31 +88,30 @@ export default function Projects() {
                   }
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <span className="absolute top-4 left-4 text-[10px] font-semibold uppercase tracking-[0.2em] bg-[#faf5e8]/95 backdrop-blur text-neutral-800 px-3 py-1.5 rounded-full">
+
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
+                {/* Category badge */}
+                <span className="absolute top-3 left-3 text-[10px] font-bold uppercase tracking-[0.18em] bg-white/90 backdrop-blur-sm text-neutral-700 px-2.5 py-1 rounded-full">
                   {p.category}
                 </span>
-              </div>
-              <div className="px-3 pt-4 pb-2 flex items-center justify-between gap-4">
-                <h3
-                  className={`font-serif text-neutral-900 leading-tight ${
-                    i === 0 ? "text-2xl lg:text-3xl" : "text-xl"
-                  }`}
-                >
-                  {p.title}
-                </h3>
-                <svg
-                  className="w-5 h-5 text-neutral-500 group-hover:text-brand-700 group-hover:translate-x-1 transition-all shrink-0"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" />
-                </svg>
+
+                {/* Title on hover */}
+                <div className="absolute inset-x-0 bottom-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <h3
+                    className={`font-heading font-bold text-white leading-tight ${
+                      i === 0 ? "text-xl lg:text-2xl" : "text-base"
+                    }`}
+                  >
+                    {p.title}
+                  </h3>
+                </div>
               </div>
             </article>
           ))}
         </div>
+
       </div>
     </section>
   );

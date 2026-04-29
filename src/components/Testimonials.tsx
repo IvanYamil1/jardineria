@@ -23,72 +23,83 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
-  return (
-    <section id="testimonios" className="py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative bg-[#1d2b1d] rounded-[32px] overflow-hidden px-6 sm:px-10 lg:px-14 py-16 lg:py-20">
-          <div
-            className="absolute inset-0 opacity-[0.08] pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 15% 10%, #8acd8a 0, transparent 45%), radial-gradient(circle at 85% 90%, #58b158 0, transparent 45%)",
-            }}
-            aria-hidden
-          />
+  const [featured, ...rest] = testimonials;
 
-          <div className="relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 max-w-5xl">
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.28em] text-brand-300 font-semibold">
-                — Testimonios
-              </span>
-              <h2 className="mt-4 font-serif text-[2.5rem] sm:text-5xl lg:text-[3.5rem] leading-[1.02] tracking-tight text-white">
-                Lo que dicen{" "}
-                <span className="italic text-brand-300">quienes confían</span>
-                <br />
-                en nosotros
-              </h2>
-            </div>
-            <p className="text-white/70 max-w-sm leading-relaxed">
-              Clientes corporativos, residenciales y particulares comparten su
-              experiencia trabajando con LAUJICLA.
-            </p>
+  return (
+    <section id="testimonios" className="bg-white px-[10px] pb-[10px]">
+      <div className="relative overflow-hidden rounded-[22px] lg:rounded-[28px] bg-[#040d08]">
+
+        {/* Background glows */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.10]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 10% 15%, #8acd8a 0, transparent 45%), radial-gradient(circle at 90% 85%, #2a7a2a 0, transparent 45%)",
+          }}
+          aria-hidden
+        />
+
+        <div className="relative px-8 sm:px-12 lg:px-16 pt-16 lg:pt-20 pb-10 lg:pb-14">
+
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 mb-12">
+            <span className="block w-9 h-px bg-white/30" />
+            <span className="text-white/45 text-[10px] tracking-[0.30em] uppercase font-medium">
+              Testimonios
+            </span>
           </div>
 
-          <div className="relative mt-14 grid md:grid-cols-3 gap-5">
-            {testimonials.map((t) => (
+          {/* Featured testimonial */}
+          <div className="mb-12 lg:mb-16 max-w-4xl">
+            <svg
+              className="w-9 h-9 text-[#5aaa5a] mb-7"
+              viewBox="0 0 32 32"
+              fill="currentColor"
+              aria-hidden
+            >
+              <path d="M4 14.4C4 9.76 7.36 5.84 12 4l1.6 2.4C10.56 7.6 8.96 9.84 8.64 12H12v8H4v-5.6zm16 0C20 9.76 23.36 5.84 28 4l1.6 2.4C26.56 7.6 24.96 9.84 24.64 12H28v8h-8v-5.6z" />
+            </svg>
+            <blockquote className="font-heading font-semibold text-white text-[1.55rem] sm:text-[2rem] lg:text-[2.4rem] leading-[1.25] tracking-tight">
+              &ldquo;{featured.quote}&rdquo;
+            </blockquote>
+            <div className="mt-8 flex items-center gap-4">
+              <div className="w-11 h-11 rounded-full bg-[#2a7a2a] text-white grid place-items-center text-sm font-bold shrink-0">
+                {featured.initials}
+              </div>
+              <div>
+                <div className="font-heading font-semibold text-white text-[14px]">
+                  {featured.name}
+                </div>
+                <div className="text-white/40 text-[12px] mt-0.5">{featured.role}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Secondary testimonials */}
+          <div className="grid md:grid-cols-2 gap-3 pt-10 border-t border-white/10">
+            {rest.map((t) => (
               <figure
                 key={t.name}
-                className="flex flex-col bg-[#faf5e8] rounded-3xl p-7 shadow-xl shadow-black/20"
+                className="flex flex-col bg-white/[0.04] border border-white/[0.07] rounded-[18px] p-6 lg:p-8"
               >
-                <svg
-                  className="w-8 h-8 text-brand-500"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden
-                >
-                  <path d="M7.17 15.5C8.6 15.5 9.75 14.36 9.75 12.92c0-1.44-1.15-2.59-2.58-2.59-.14 0-.27.02-.4.04.51-2.33 2.58-4.04 5.05-4.04V4.5C8.67 4.5 5.5 7.67 5.5 11.58v1.34c0 1.43 1.17 2.58 2.67 2.58h-1zm9.17 0c1.43 0 2.58-1.14 2.58-2.58 0-1.44-1.15-2.59-2.58-2.59-.14 0-.27.02-.4.04.51-2.33 2.58-4.04 5.05-4.04V4.5c-3.15 0-6.32 3.17-6.32 7.08v1.34c0 1.43 1.17 2.58 2.67 2.58h-1z" />
-                </svg>
-
-                <blockquote className="mt-5 text-neutral-800 leading-relaxed flex-1">
-                  {t.quote}
+                <blockquote className="text-white/55 text-[14px] leading-relaxed flex-1">
+                  &ldquo;{t.quote}&rdquo;
                 </blockquote>
-
-                <div className="mt-7 pt-5 border-t border-neutral-900/10 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-brand-700 text-white grid place-items-center text-sm font-semibold">
+                <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-[#1c4f1c] text-white grid place-items-center text-xs font-bold shrink-0">
                     {t.initials}
                   </div>
-                  <div className="min-w-0">
-                    <figcaption className="font-semibold text-neutral-900 text-sm">
+                  <div>
+                    <figcaption className="font-heading font-semibold text-white text-[13px]">
                       {t.name}
                     </figcaption>
-                    <div className="text-xs text-neutral-500 truncate">
-                      {t.role}
-                    </div>
+                    <div className="text-white/38 text-[11px] mt-0.5">{t.role}</div>
                   </div>
                 </div>
               </figure>
             ))}
           </div>
+
         </div>
       </div>
     </section>
