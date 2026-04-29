@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/ivany/Desktop/**)",
+      "Read(//c/Users/ivany/OneDrive/Documentos/Proyectos Programacion/PEPTIX/**)"
+    ]
+  }
+}

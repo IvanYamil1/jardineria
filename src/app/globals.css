@@ -65,3 +65,248 @@ html {
 .animate-fade-up {
   animation: fade-up 0.8s ease-out both;
 }
+
+/* ── Scroll-driven before/after comparator ──────────────────────── */
+
+@property --lj-scroll-progress {
+  inherits: true;
+  initial-value: 0;
+  syntax: "<number>";
+}
+
+:root {
+  --lj-comp-duration: 400vh;
+}
+
+.lj-scroll-section {
+  block-size: calc(var(--lj-comp-duration) + 100vh);
+  position: relative;
+}
+
+.lj-comparator-container {
+  align-items: stretch;
+  block-size: 100vh;
+  display: flex;
+  inset-block-start: 0;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px;
+  position: sticky;
+  inline-size: 100%;
+}
+
+.lj-comparator-wrapper {
+  animation: lj-flip linear both;
+  animation-timeline: scroll(root);
+  animation-range:
+    calc(var(--lj-comp-offset, 0px) - 50vh)
+    calc(var(--lj-comp-offset, 0px) + var(--lj-comp-duration) + 50vh);
+  block-size: 100%;
+  border-radius: 22px;
+  inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.lj-comparator {
+  animation: lj-progress-calc linear both;
+  animation-timeline: scroll(root);
+  animation-range:
+    var(--lj-comp-offset, 0px)
+    calc(var(--lj-comp-offset, 0px) + var(--lj-comp-duration));
+  block-size: 100%;
+  display: grid;
+  inline-size: 100%;
+  position: relative;
+}
+
+.lj-image-layers,
+.lj-divider-lines {
+  display: grid;
+  grid-area: 1 / -1;
+  position: relative;
+}
+
+.lj-image-layer {
+  display: grid;
+  grid-area: 1 / -1;
+  position: relative;
+  z-index: calc(sibling-count() - sibling-index() + 1);
+}
+
+.lj-image-layer:not(:last-child) {
+  --lj-li: sibling-index();
+  --lj-lc: sibling-count();
+  --lj-ls: calc((var(--lj-li) - 1) / (var(--lj-lc) - 1));
+  --lj-le: calc(var(--lj-li) / (var(--lj-lc) - 1));
+
+  animation: lj-clip-reveal linear both;
+  animation-timeline: scroll(root);
+  animation-range:
+    calc(var(--lj-comp-offset, 0px) + var(--lj-comp-duration) * var(--lj-ls))
+    calc(var(--lj-comp-offset, 0px) + var(--lj-comp-duration) * var(--lj-le));
+}
+
+.lj-divider-lines {
+  z-index: 15;
+  pointer-events: none;
+}
+
+.lj-divider-line {
+  --lj-di: sibling-index();
+  --lj-dc: sibling-count();
+  --lj-ds: calc((var(--lj-di) - 1) / var(--lj-dc));
+  --lj-de: calc(var(--lj-di) / var(--lj-dc));
+
+  block-size: 100%;
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.22), 0 0 4px rgba(255, 255, 255, 0.5);
+  grid-area: 1 / -1;
+  inline-size: 1px;
+  pointer-events: none;
+  position: relative;
+  z-index: calc(20 - var(--lj-di));
+
+  animation: lj-divider-move linear both;
+  animation-timeline: scroll(root);
+  animation-range:
+    calc(var(--lj-comp-offset, 0px) + var(--lj-comp-duration) * var(--lj-ds))
+    calc(var(--lj-comp-offset, 0px) + var(--lj-comp-duration) * var(--lj-de));
+}
+
+.lj-layer-overlay {
+  block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  grid-area: 1 / -1;
+  inline-size: 100%;
+  pointer-events: none;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(
+    to top,
+    rgba(4, 13, 8, 0.72) 0%,
+    rgba(4, 13, 8, 0.12) 35%,
+    transparent 55%
+  );
+}
+
+.lj-stage-label {
+  align-self: flex-start;
+  backdrop-filter: blur(8px);
+  background: rgba(4, 13, 8, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin: 18px;
+  padding: 6px 14px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.lj-stage-info {
+  margin-block: auto 2rem;
+  margin-inline: 2rem;
+}
+
+.lj-percentage {
+  bottom: 1.25rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  pointer-events: none;
+  position: absolute;
+  right: 1.25rem;
+  z-index: 20;
+  letter-spacing: 0.06em;
+}
+
+.lj-stage-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: auto;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 25;
+}
+
+.lj-stage-dot {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.28);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 6px;
+  padding: 0;
+  transition: all 0.2s ease;
+  width: 6px;
+}
+
+.lj-stage-dot:hover {
+  background: rgba(255, 255, 255, 0.65);
+  transform: scale(1.3);
+}
+
+.lj-stage-dot.lj-active {
+  background: white;
+  height: 14px;
+}
+
+.lj-stage-dot:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+
+@media (max-width: 48em) {
+  .lj-stage-nav {
+    bottom: 3.5rem;
+    flex-direction: row;
+    left: 50%;
+    right: auto;
+    top: auto;
+    transform: translateX(-50%);
+  }
+  .lj-stage-dot.lj-active {
+    height: 6px;
+    width: 14px;
+  }
+}
+
+@keyframes lj-flip {
+  0% {
+    opacity: 0.78;
+    transform: perspective(1100px) rotateX(8deg) rotateY(-8deg) rotateZ(-2deg) scale(0.88);
+  }
+  14%, 86% {
+    opacity: 1;
+    transform: perspective(1100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+  }
+  100% {
+    opacity: 0.78;
+    transform: perspective(1100px) rotateX(-8deg) rotateY(8deg) rotateZ(2deg) scale(0.88);
+  }
+}
+
+@keyframes lj-progress-calc {
+  from { --lj-scroll-progress: 0; }
+  to   { --lj-scroll-progress: 100; }
+}
+
+@keyframes lj-clip-reveal {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes lj-divider-move {
+  0%   { inset-inline-start: 100%; opacity: 0; }
+  2%   { opacity: 1; }
+  98%  { opacity: 1; }
+  100% { inset-inline-start: 0%; opacity: 0; }
+}
